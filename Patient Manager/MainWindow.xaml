@@ -34,16 +34,9 @@
         <TextBlock Grid.Column="2" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" Text="Patients" Background="{StaticResource HeaderTextBoxBackground}" Padding="10" />
         <TextBlock Grid.Column="4" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" Text="Patients" Background="{StaticResource HeaderTextBoxBackground}" Padding="10" />
 
-        <ListBox Grid.Column="0" Grid.Row="2" BorderThickness="1">
-            <ListBoxItem>ListBox Item #1</ListBoxItem>
-            <ListBoxItem>ListBox Item #2</ListBoxItem>
-            <ListBoxItem>ListBox Item #3</ListBoxItem>
-        </ListBox>
-        <ListBox Grid.Column="2" Grid.Row="2">
-            <ListBoxItem>ListBox Item #1</ListBoxItem>
-            <ListBoxItem>ListBox Item #2</ListBoxItem>
-            <ListBoxItem>ListBox Item #3</ListBoxItem>
-        </ListBox>
+        <ListBox Grid.Column="0" Grid.Row="2" BorderThickness="1" Name ="wardListBox" DisplayMemberPath="printWard"/>
+
+        <ListBox Grid.Column="2" Grid.Row="2" Name="patientListBox" DisplayMemberPath="printPatient"/>
         <Expander HorizontalAlignment="Stretch"  Header="Add new ward"  Grid.Row="4" VerticalAlignment="Stretch" >
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -56,11 +49,51 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <Label Content="Label" Grid.Row="0" VerticalAlignment="Center"/>
-                <TextBox Grid.Column="1" BorderThickness="1" Height="25"/>
+                <Label  Content="Name" Grid.Row="0" VerticalAlignment="Center"/>
+                <TextBox Name="addWardName" Grid.Column="1" BorderThickness="1" Height="25" TextChanged="AddWardName_OnTextChanged"/>
 
-                <Label  Content="Label" Grid.Row="1" VerticalAlignment="Center"/>
-                <Slider Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" TickPlacement="TopLeft"/>
+                <Label  Content="Capacity" Grid.Row="1" VerticalAlignment="Center"/>
+                <Slider Name="addWardCapacity"  Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" TickPlacement="TopLeft" Interval="1" SmallChange="1" Minimum="1" Maximum="15" AutoToolTipPlacement="TopLeft" IsSnapToTickEnabled="True"/>
+                <Button Name="addWardBtn"  Grid.Column="1" Grid.Row="2" Width="150" Height="25" Content="Add ward" Click="AddWardBtn_OnClick" IsEnabled="False"/>
+
+            </Grid>
+        </Expander>
+        <Expander Grid.Column="2" HorizontalAlignment="Stretch"  Header="Add new patient"  Grid.Row="4" VerticalAlignment="Stretch" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+
+                </Grid.RowDefinitions>
+
+                <Label  Content="Name" Grid.Row="0" VerticalAlignment="Center"/>
+                <TextBox Name="addPatientName" Grid.Column="1" BorderThickness="1" Height="25" TextChanged="AddPatientName_OnTextChanged"/>
+
+                <Label  Content="DOB" Grid.Row="1" VerticalAlignment="Center"/>
+                <DatePicker Name="addPatientDOB"  Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"/>
+
+                <Label   Content="Blood Type" Grid.Row="2" VerticalAlignment="Center"/>
+                <Grid Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <RadioButton Name="Radio_BloodType_A"  Grid.Column="0" Content="A" HorizontalAlignment="Center"/>
+                    <RadioButton Name="Radio_BloodType_B" Grid.Column="1" Content="B" HorizontalAlignment="Center"/>
+                    <RadioButton Name="Radio_BloodType_AB" Grid.Column="2" Content="AB" HorizontalAlignment="Center"/>
+                    <RadioButton Name="Radio_BloodType_O" Grid.Column="3" Content="O" HorizontalAlignment="Center"/>
+                </Grid>
+
+                <Button Name="addPatientBtn"  Grid.Column="1" Grid.Row="3" Width="150" Height="25" Content="Add patient" Click="AddPatientBtn_OnClick"  IsEnabled="False"/>
 
             </Grid>
         </Expander>
