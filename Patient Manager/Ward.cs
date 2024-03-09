@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Patient_Manager
@@ -12,6 +13,8 @@ namespace Patient_Manager
         public string Name { get; set; }
         public int Capacity { get; set; }
         public ObservableCollection<Patient> Patients { get; set; }
+
+        [JsonIgnore]
         public string printWard => $"{Name}, {Capacity}";
 
         public Ward(string name, int capacity, ObservableCollection<Patient> patients = null)

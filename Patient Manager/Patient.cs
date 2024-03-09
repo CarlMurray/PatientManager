@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.JavaScript;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Patient_Manager
@@ -26,8 +27,11 @@ namespace Patient_Manager
                 Age = (int)Math.Floor((DateTime.Now - _dateOfBirth).TotalDays / 365);
             }
         }
+        [JsonIgnore]
         public int Age { get; private set; }
         public Blood_Type BloodType { get; set; }
+
+        [JsonIgnore]
         public string printPatient => $"{Name} ({Age}) Type {BloodType}";
 
 
