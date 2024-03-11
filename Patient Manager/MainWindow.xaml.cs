@@ -79,7 +79,7 @@ public partial class MainWindow : Window
             bloodType = Patient.Blood_Type.O;
         }
 
- 
+
 
         // Add patient to selected ward
         selectedWard.Patients.Add(new Patient(addPatientName.Text.Trim(), addPatientDOB.DisplayDate, bloodType));
@@ -94,16 +94,25 @@ public partial class MainWindow : Window
     // Loads data from FILE_PATH
     private void LoadData_OnClick(object sender, RoutedEventArgs e)
     {
+
         wardList.Clear();
-        string file = File.ReadAllText(FILE_PATH);
-        ObservableCollection<Ward>? deserialize = JsonSerializer.Deserialize<ObservableCollection<Ward>>(file);
-        Ward.WardCount = 0;
-        foreach (Ward ward in deserialize)
+        try
         {
-            wardList.Add(ward);
-            Ward.WardCount++;
+            string file = File.ReadAllText(FILE_PATH);
+
+            ObservableCollection<Ward>? deserialize = JsonSerializer.Deserialize<ObservableCollection<Ward>>(file);
+            Ward.WardCount = 0;
+            foreach (Ward ward in deserialize)
+            {
+                wardList.Add(ward);
+                Ward.WardCount++;
+            }
+            UpdateWardsHeaderUI();
         }
-        UpdateWardsHeaderUI();
+        catch (Exception exception)
+        {
+            MessageBox.Show("Tried to load data but failed. To load data, please place a file named 'data.json' on your Desktop.");
+        }
     }
 
     // Updates Wards Header in UI with number of Wards
@@ -123,6 +132,7 @@ public partial class MainWindow : Window
     // Initialises program with data on load
     private void InitData_OnLoad(object sender, RoutedEventArgs e)
     {
+        // Tries to load data.json file, otherwise starts with no data
         LoadData_OnClick(sender, e);
     }
 }
